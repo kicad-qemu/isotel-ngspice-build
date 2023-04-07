@@ -1,0 +1,17 @@
+on:
+  schedule:
+  - cron: "*0 1 * * *"
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone the SourceForge repo
+      run: git clone https://git.code.sf.net/u/platise/ngspice platise-ngspice
+    - name: Clone our Github repo
+      run: git clone https://github.com/kicad-qemu/isotel-ngspice
+    - name: Check HEAD different then push
+      run: |
+        if [ $(git -C platise-ngspice rev-parse HEAD) != $(git -C isotel-ngspice rev-parse HEAD) ]; then git -C platise-ngspice remote set-url origin https://kicad-qemu:${{ secrets.TOKEN }}@github.com/kicad-qemu/isotel-ngspice; git -C platise-ngspice push -f origin main; git clone https://github.com/kicad-qemu/isotel-ngspice-build; echo $(git -C platise-ngspice rev-parse HEAD) > isotel-ngspice-build/rev.txt; git -C isotel-ngspice-build remote set-url origin https://kicad-qemu:${{ secrets.TOKEN }}@github.com/kicad-qemu/isotel-ngspice-build; git commit -m "New rev"; git -C isotel-ngspice-build push -f origin main; fi
+        
