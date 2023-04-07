@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    name: Build Linux binaries
+    steps:
+      - name: Clone repo
+        run: git clone https://github.com/kicad-qemu/isotel-ngspice
+      - name: Install dependencies
+        run: sudo apt install gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 make automake libtool bison flex
+      - name: Build
+        run: |
+          cd isotel-ngspice
+          export DESTDIR=$PWD/install
+          ./compile_linux.sh
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Linux x86_64 binaries release
+          path: install
+  linux_shared:
+    runs-on: ubuntu-latest
+    name: Build Linux shared libraries
+    steps:
+      - name: Clone repo
+        run: git clone https://github.com/kicad-qemu/isotel-ngspice
+      - name: Install dependencies
+        run: sudo apt install gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 make automake libtool bison flex
+      - name: Build
+        run: |
+          cd isotel-ngspice
+          export DESTDIR=$PWD/install
+          ./compile_linux_shared.sh
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Linux x86_64 shared libraries release
+          path: install
