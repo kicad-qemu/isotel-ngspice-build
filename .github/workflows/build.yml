@@ -6,6 +6,7 @@ on:
 
 jobs:
   linux:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     name: Build Linux binaries
     steps:
@@ -24,6 +25,7 @@ jobs:
           name: Linux x86_64 binaries release
           path: isotel-ngspice/install
   linux_shared:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     name: Build Linux shared libraries
     steps:
@@ -52,7 +54,7 @@ jobs:
         run: git clone https://github.com/kicad-qemu/isotel-ngspice
       - name: Setup apt-cyg
         run: |
-          lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+          wget https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg -O apt-cyg
           install apt-cyg /bin
           apt-cyg install make automake libtool bison flex
       - name: Build
