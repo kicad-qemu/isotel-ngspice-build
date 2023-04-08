@@ -6,7 +6,6 @@ on:
 
 jobs:
   linux:
-    if: ${{ false }}
     runs-on: ubuntu-latest
     name: Build Linux binaries
     steps:
@@ -25,7 +24,6 @@ jobs:
           name: Linux x86_64 binaries release
           path: isotel-ngspice/install
   linux_shared:
-    if: ${{ false }}
     runs-on: ubuntu-latest
     name: Build Linux shared libraries
     steps:
@@ -44,6 +42,7 @@ jobs:
           name: Linux x86_64 shared libraries release
           path: isotel-ngspice/install
   win32:
+    if: ${{ false }} # We have to disable it since it hasn't work yet
     runs-on: windows-latest
     name: Build Windows x86 binaries
     defaults:
