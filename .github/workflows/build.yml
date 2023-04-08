@@ -12,7 +12,7 @@ jobs:
       - name: Clone repo
         run: git clone https://github.com/kicad-qemu/isotel-ngspice
       - name: Install dependencies
-        run: sudo apt install gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 make automake libtool bison libxaw7-dev flex
+        run: sudo apt install make automake libtool bison flex libxaw7-dev
       - name: Build
         run: |
           cd isotel-ngspice
@@ -30,7 +30,7 @@ jobs:
       - name: Clone repo
         run: git clone https://github.com/kicad-qemu/isotel-ngspice
       - name: Install dependencies
-        run: sudo apt install gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 make automake libtool bison flex
+        run: sudo apt install make automake libtool bison flex
       - name: Build
         run: |
           cd isotel-ngspice
@@ -41,3 +41,21 @@ jobs:
         with:
           name: Linux x86_64 shared libraries release
           path: isotel-ngspice/install
+  win32:
+    runs-on: windows-latest
+    name: Build Windows x86 binaries
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Clone repo
+        run: git clone https://github.com/kicad-qemu/isotel-ngspice
+      - name: Build
+        run: |
+          cd isotel-ngspice
+          ./cross-compile.sh
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Windows x86 binaries release
+          path: isotel-ngspice/release-mingw-32/ngspice-mingw-32.zip
