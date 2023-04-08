@@ -54,7 +54,7 @@ jobs:
         run: git clone https://github.com/kicad-qemu/isotel-ngspice
       - name: Setup apt-cyg
         run: |
-          /c/msys64/usr/bin/pacman -S mingw-w64-gcc mingw-w64-x86_64-autotools automake1.16 make libtool bison flex
+          /c/msys64/usr/bin/pacman -S gcc mingw-w64-x86_64-autotools automake1.16 make libtool bison flex
       - name: Build
         run: |
           cd isotel-ngspice
