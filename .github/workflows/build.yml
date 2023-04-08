@@ -52,11 +52,11 @@ jobs:
         run: git clone https://github.com/kicad-qemu/isotel-ngspice
       - name: Install dependencies
         run: |
-          /c/msys64/usr/bin/bash pacman -S gcc mingw-w64-x86_64-autotools automake make libtool bison flex --noconfirm
+          /c/msys64/usr/bin/bash PATH=$PATH:/c/msys64/usr/bin pacman -S gcc mingw-w64-x86_64-autotools automake make libtool bison flex --noconfirm
       - name: Build
         run: |
           cd isotel-ngspice
-          /c/msys64/usr/bin/bash DESTDIR=$PWD/install ./compile_min.sh
+          /c/msys64/usr/bin/bash PATH=$PATH:/c/msys64/usr/bin DESTDIR=$PWD/install ./compile_min.sh
       - name: Upload built artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -73,11 +73,11 @@ jobs:
         run: git clone https://github.com/kicad-qemu/isotel-ngspice
       - name: Install dependencies
         run: |
-          /c/msys64/usr/bin/bash pacman -S gcc mingw-w64-x86_64-autotools automake make libtool bison flex --noconfirm
+          /c/msys64/usr/bin/bash PATH=$PATH:/c/msys64/usr/bin pacman -S gcc mingw-w64-x86_64-autotools automake make libtool bison flex --noconfirm
       - name: Build
         run: |
           cd isotel-ngspice
-          /c/msys64/usr/bin/bash DESTDIR=$PWD/install ./compile_min_shared.sh
+          /c/msys64/usr/bin/bash PATH=$PATH:/c/msys64/usr/bin DESTDIR=$PWD/install ./compile_min_shared.sh
       - name: Upload built artifacts
         uses: actions/upload-artifact@v3
         with:
